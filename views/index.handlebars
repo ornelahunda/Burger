@@ -1,47 +1,50 @@
+<div class="container-fluid">
 
+	<br>
+	<div class="row">
+		<div class="text-center col-sm-12">
+			<br>
+			<h1 style="color:rgb(248, 10, 10)">WELCOME TO THE KRUSTY KRAB</h1>
+			<img src="/assets/img/burger.jpg" id="burger-photo" style="width:400px;height:400px;" alt="burger">
 
-<div class="row">
-  <center>
-    <!-- Left side (ready to eat) -->
-    <div class="col-md-6">
-      <h4 class="red_font">Ready to eat!</h4>
-      <div id="ready_to_eat">
+			<p></p>
+		</div>
+	</div>
 
-        <!-- Dynamically Insert Ready Burgers Here -->
-        {{#each burgers}}
-          {{#unless devoured}}
-          <form action="burger/eat/{{id}}" method="POST">
-            <div class="input-group">
-              <li class="form-control">{{id}}. {{burger_name}}</li>
-                <span class="input-group-btn">
-                  <button class="btn btn-success devour-button" type="submit">Devour It!</button>
-                </span>
-            </div>
-          </form>
-          {{/unless}}
-        {{/each}}
+	<br>
+	<div class="row">
+		<div class="text-center col-sm-12">
+			<h2>Add a Burger</h2>
+			<form class="create-form">
+				<div class="field">
+					<label class="label" id="label" for="burger">Burger Name:</label>
+					<input type="text" id="burger" name="name" class="input" required>
+					<button class="button is-danger" type="submit ">Add Burger</button>
+				</div>
+			</form>
+		</div>
+	</div>
 
-      </div>
-    </div>
+	<br>
+	<div class="row">
+	
+			<div class="col-sm-5 col-sm-offset-1">
+				<h3>Burgers To Eat!</h3> 
 
-    <!-- Right side (already eaten) -->
-    <div class="col-md-6">
-      <h4 class="red_font">Already eaten!</h4>
-      <div id="already_eaten">
+				<div id="devour">
+					{{#each burgers}} {{#if devoured}} {{> burgers/burger-block devoured=false}} {{/if}} {{/each}}
+				</div>
+			</div>
 
-        <!-- Dynamically Insert Eaten Burgers Here -->
-        {{#each burgers}}
-          {{#if this.devoured}}
-            <div class="input-group">
-              <li class="form-control">{{this.id}}. {{this.burger_name}}</li>
-              <span class="input-group-btn">
-                <button class="btn btn-info whine-button" type="button">Whine!</button>
-              </span>
-            </div>
-          {{/if}}
-        {{/each}}
-
-      </div>
-    </div>
-  </center>
-</div>
+			<div class="col-sm-5 col-sm-offset-1">
+				<div id="devoured">
+					<h2>Devoured Burgers</h2>
+					 {{#each burgers}} {{#unless devoured}}
+					<li>
+						{{id}}. {{burger_name}}
+					</li>
+					{{/unless}} {{/each}}
+				</div>
+			</div>
+		</div>
+	</div>

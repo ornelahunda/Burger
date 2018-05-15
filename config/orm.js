@@ -1,15 +1,12 @@
+
+/*
+Here is the O.R.M. where you write functions 
+that takes inputs and conditions and turn 
+them into database commands like SQL.
+*/
+
 // Import MySQL connection.
 var connection = require("../config/connection.js");
-
-// Connect to database
-connection.connect(function (err) {
-  if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
-  }
-  console.log('connected as id ' + connection.threadId);
-});
-
 
 // In this file,
 //  I am going to create the methods that will execute the necessary MySQL commands in the controllers. 
@@ -59,13 +56,11 @@ var orm = {
   selectAll: function (tableInput, cb) {
     // Construct the query string that returns all rows from the target table
     var queryString = "SELECT * FROM " + tableInput + ";";
-
     // Perform the database query
     connection.query(queryString, function (err, result) {
       if (err) {
         throw err;
       }
-
       // Return results in callback
       cb(result);
     });
@@ -76,20 +71,19 @@ var orm = {
   insertOne: function (table, cols, vals, cb) {
     var queryString = "INSERT INTO " + table;
 
-    queryString += " (";
+    queryString += "(";
     queryString += cols.toString();
     queryString += ") ";
     queryString += "VALUES (";
     queryString += printQuestionMarks(vals.length);
     queryString += ") ";
 
-    console.log(queryString);
-
+    // console.log(queryString);
+    
     connection.query(queryString, vals, function (err, result) {
       if (err) {
         throw err;
       }
-
       cb(result);
     });
   },
@@ -108,7 +102,6 @@ var orm = {
       if (err) {
         throw err;
       }
-
       cb(result);
     });
   }
